@@ -1,0 +1,72 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Juego/StyleGame.uss?fileID=7433441132597879392&amp;guid=78d582b6360779f4fa4fae0e0e6cf8ad&amp;type=3#StyleGame"/>
+    <ui:VisualElement name="ContenedorPadre" class="contenedorPadre">
+        <ui:VisualElement name="Header" class="header" style="flex-grow: 1;">
+            <ui:VisualElement name="nombreSistema" style="flex-grow: 1; flex-direction: row; align-items: center; width: 30%; height: 100%; justify-content: flex-start; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 5%;">
+                <ui:Label text="GALERIA DE DIVISIONES - V1.5.2" name="txt-nombre-sistema" style="color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/Fonts/Lexend-VariableFont_wght.ttf?fileID=12800000&amp;guid=fb67724670071f9488997379caef1f61&amp;type=3#Lexend-VariableFont_wght&quot;); font-size: 20%; -unity-font-style: bold;"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="medio" style="flex-grow: 1; width: 20%; height: 100%;"/>
+            <ui:VisualElement name="score-n-timer" style="flex-grow: 1; width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end; padding-top: 0; padding-right: 10%;">
+                <ui:VisualElement name="intermedio" style="flex-grow: 1; width: 60%; height: 100%;"/>
+                <ui:VisualElement name="timer" style="flex-grow: 1; width: 15%; height: 100%; align-items: center; justify-content: center;">
+                    <ui:Label text="TIEMPO" name="txt-titulo" style="color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 15%; -unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kids-Regular.ttf?fileID=12800000&amp;guid=613bac879cb1149449c3e541744491e5&amp;type=3#Kids-Regular&quot;);"/>
+                    <ui:Label text="0:00" name="txt-temporizador" style="color: rgb(0, 180, 255); padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 30%; -unity-font-definition: url(&quot;project://database/Assets/Fonts/GROBOLD.ttf?fileID=12800000&amp;guid=7ae43624891dfe0418c716074663170f&amp;type=3#GROBOLD&quot;);"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="score" style="flex-grow: 1; width: 15%; height: 100%; align-items: center; justify-content: center;">
+                    <ui:Label text="SCORE" name="txt-titulo" style="color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 15%; -unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kids-Regular.ttf?fileID=12800000&amp;guid=613bac879cb1149449c3e541744491e5&amp;type=3#Kids-Regular&quot;);"/>
+                    <ui:Label text="0:00" name="txt-temporizador" style="color: rgb(215, 139, 12); padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 30%; -unity-font-definition: url(&quot;project://database/Assets/Fonts/GROBOLD.ttf?fileID=12800000&amp;guid=7ae43624891dfe0418c716074663170f&amp;type=3#GROBOLD&quot;);"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ContenidoPadre" class="contenidoPadre">
+            <ui:VisualElement name="ContenidoIzquierdo" class="contenidoIzquierdo" style="flex-grow: 1;">
+                <ui:VisualElement name="cDivisiones" class="divisiones" style="flex-grow: 1;">
+                    <ui:VisualElement name="contenidoOperaciones" class="contenidoOperaciones" style="flex-grow: 1;">
+                        <ui:VisualElement name="dividendo" class="operadoresCont" style="flex-grow: 1;">
+                            <ui:Label text="0000" name="txt-dividendo" style="background-color: rgba(0, 0, 0, 0); color: rgb(245, 158, 11); font-size: 70%; -unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BebasNeue-Regular.ttf?fileID=12800000&amp;guid=1c37a6b70989a864e88473b93c5d8293&amp;type=3#BebasNeue-Regular&quot;); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; white-space: nowrap; text-shadow: 0 0 0 rgb(245, 158, 11);"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="signo" class="operadoresCont" style="flex-grow: 1;">
+                            <ui:Label text="÷" name="txt-signo" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 100%; color: rgb(0, 180, 255); -unity-font-style: bold; -unity-text-outline-width: 0; letter-spacing: 0; text-shadow: 3px 1px 0 rgb(122, 221, 216); background-color: rgba(0, 0, 0, 0); -unity-font-definition: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=7987568297664ed4ab6720ca4aa32220&amp;type=3#NotInter-Regular&quot;);"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="divisor" class="operadoresCont" style="flex-grow: 1;">
+                            <ui:Label text="00" name="txt-divisor" style="background-color: rgba(0, 0, 0, 0); font-size: 70%; color: rgb(255, 255, 255); -unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BebasNeue-Regular.ttf?fileID=12800000&amp;guid=1c37a6b70989a864e88473b93c5d8293&amp;type=3#BebasNeue-Regular&quot;);"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="igual" class="operadoresCont" style="flex-grow: 1;">
+                            <ui:Label text="=&#10;" name="txt-igual" style="background-color: rgba(0, 0, 0, 0); font-size: 70%; color: rgb(65, 168, 190); -unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BebasNeue-Regular.ttf?fileID=12800000&amp;guid=1c37a6b70989a864e88473b93c5d8293&amp;type=3#BebasNeue-Regular&quot;);"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="resultado" class="operadoresCont" style="flex-grow: 1;">
+                            <ui:Label text="0" name="txt-resultado" style="background-color: rgba(0, 0, 0, 0); font-size: 70%; color: rgb(255, 255, 255); -unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BebasNeue-Regular.ttf?fileID=12800000&amp;guid=1c37a6b70989a864e88473b93c5d8293&amp;type=3#BebasNeue-Regular&quot;);"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="cDivisionesRealizadas" class="divisionesRealizadas" style="flex-grow: 1;">
+                    <ui:Label text="Operaciones Existosas" style="-unity-text-align: middle-center; color: rgb(255, 255, 255); font-size: 20px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Lexend-VariableFont_wght.ttf?fileID=12800000&amp;guid=fb67724670071f9488997379caef1f61&amp;type=3#Lexend-VariableFont_wght&quot;); -unity-font-style: bold;"/>
+                    <ui:VisualElement name="resueltos" class="divisiones" style="flex-grow: 1;">
+                        <ui:VisualElement name="contenedorOperacion1" enabled="true" class="listaElementos" style="flex-grow: 1;">
+                            <ui:Label text=" " name="txt-operacion1" class="textosOpR"/>
+                            <ui:Label text="" name="txt-bien-mal1" class="textoMarca" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 40px; height: 100%; -unity-font-definition: url(&quot;project://database/Assets/Fonts/GROBOLD.ttf?fileID=12800000&amp;guid=7ae43624891dfe0418c716074663170f&amp;type=3#GROBOLD&quot;); -unity-text-align: middle-center;"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="contenedorOperacion2" enabled="true" class="listaElementos" style="flex-grow: 1;">
+                            <ui:Label text=" " name="txt-operacion2" class="textosOpR"/>
+                            <ui:Label text="" name="txt-bien-mal1" class="textoMarca" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 40px; height: 100%; -unity-font-definition: url(&quot;project://database/Assets/Fonts/GROBOLD.ttf?fileID=12800000&amp;guid=7ae43624891dfe0418c716074663170f&amp;type=3#GROBOLD&quot;); -unity-text-align: middle-center;"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="contenedorOperacion3" enabled="true" class="listaElementos" style="flex-grow: 1;">
+                            <ui:Label text=" " name="txt-operacion3" class="textosOpR"/>
+                            <ui:Label text="" name="txt-bien-mal1" class="textoMarca" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 40px; height: 100%; -unity-font-definition: url(&quot;project://database/Assets/Fonts/GROBOLD.ttf?fileID=12800000&amp;guid=7ae43624891dfe0418c716074663170f&amp;type=3#GROBOLD&quot;); -unity-text-align: middle-center;"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="contenedorOperacion4" enabled="true" class="listaElementos" style="flex-grow: 1;">
+                            <ui:Label text=" " name="txt-operacion4" class="textosOpR"/>
+                            <ui:Label text="" name="txt-bien-mal1" class="textoMarca" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 40px; height: 100%; -unity-font-definition: url(&quot;project://database/Assets/Fonts/GROBOLD.ttf?fileID=12800000&amp;guid=7ae43624891dfe0418c716074663170f&amp;type=3#GROBOLD&quot;); -unity-text-align: middle-center;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="ContenidoDerecho" class="contenidoDerecho" style="flex-grow: 1;">
+                <ui:VisualElement name="cNotas" class="cNotas" style="flex-grow: 1; border-left-color: rgb(140, 95, 28); border-right-color: rgb(140, 95, 28); border-top-color: rgb(140, 95, 28); border-bottom-color: rgb(140, 95, 28);">
+                    <ui:IntegerField label="Integer Field" value="0" password="false" name="InputCociente"/>
+                    <ui:Button text="Enter" name="Jugar"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

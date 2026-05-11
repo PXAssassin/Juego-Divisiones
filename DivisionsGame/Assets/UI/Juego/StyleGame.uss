@@ -1,0 +1,164 @@
+.contenedorPadre {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    width: 100%;
+    height: 10%;
+    flex-shrink: 1;
+    flex-grow: 0;
+    background-color: rgb(4, 11, 19);
+    align-items: auto;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.contenidoPadre {
+    flex-grow: 0;
+    flex-shrink: 1;
+    width: 100%;
+    height: 90%;
+    flex-direction: row;
+}
+
+.contenidoIzquierdo {
+    width: 60%;
+    background-color: rgb(15, 21, 33);
+}
+
+.divisiones {
+    width: 100%;
+    height: 50%;
+    padding-top: 40px;
+    padding-right: 20px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+}
+
+.contenidoOperaciones {
+    background-color: rgb(15, 21, 33);
+    padding-top: 100px;
+    padding-right: 150px;
+    padding-bottom: 100px;
+    padding-left: 150px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(0, 180, 255);
+    border-right-color: rgb(0, 180, 255);
+    border-top-color: rgb(0, 180, 255);
+    border-bottom-color: rgb(0, 180, 255);
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.operadoresCont {
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+.divisionesRealizadas {
+    width: 100%;
+    height: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenidoDerecho {
+    width: 40%;
+    background-color: rgb(15, 21, 33);
+    padding-top: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+}
+
+.cNotas {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-left-color: rgb(43, 33, 18);
+    border-right-color: rgb(43, 33, 18);
+    border-top-color: rgb(43, 33, 18);
+    border-bottom-color: rgb(43, 33, 18);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    background-color: rgb(18, 18, 19);
+}
+
+.listaElementos {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    background-color: rgb(18, 18, 19);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-left-color: rgb(156, 101, 17);
+    border-right-color: rgb(156, 101, 17);
+    border-top-color: rgb(156, 101, 17);
+    border-bottom-color: rgb(156, 101, 17);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 15px;
+    margin-left: 0;
+    justify-content: flex-start;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+
+
+.textosOpR {
+    -unity-font-definition: url("project://database/Assets/Fonts/BebasNeue-Regular.ttf?fileID=12800000&guid=1c37a6b70989a864e88473b93c5d8293&type=3#BebasNeue-Regular");
+    color: rgb(224, 139, 12);
+    -unity-text-align: middle-left;
+    font-size: 40px;
+    -unity-font-style: bold;
+    margin-right: 50px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 95px;
+    height: 100%;
+}
+
+.unity-base-field__label {
+    color: rgb(255, 155, 4);
+}
+
+.resueltas {
+    background-size: 100% 100%;
+    width: 100%;
+    height: 20%;
+    flex-direction: row;
+}
+
+.textoMarca {
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/Fonts/GROBOLD.ttf?fileID=12800000&guid=7ae43624891dfe0418c716074663170f&type=3#GROBOLD");
+}
