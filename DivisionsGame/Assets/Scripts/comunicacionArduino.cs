@@ -4,10 +4,16 @@ using System.IO.Ports;
 public class comunicacionArduino : MonoBehaviour
 {
     public SerialPort puerto = new SerialPort("COM5", 9600);
+    public UiJuegoScript juego;
     public string ultimoDatoRecibido = "";
 
     void Start()
     {
+        if (juego == null)
+        {
+            juego = FindFirstObjectByType<UiJuegoScript>();
+        }
+
         puerto.ReadTimeout = 30;
 
         try
@@ -32,6 +38,11 @@ public class comunicacionArduino : MonoBehaviour
             {
                 ultimoDatoRecibido = puerto.ReadLine();
                 Debug.Log(ultimoDatoRecibido);
+
+                if (int.TryParse(ultimoDatoRecibido, out int switchesActivos) && juego != null)
+                {
+                    juego.ValidaInputArduino(switchesActivos);
+                }
             }
         }
         catch (System.TimeoutException)

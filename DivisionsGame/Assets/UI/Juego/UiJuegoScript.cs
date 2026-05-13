@@ -39,6 +39,7 @@ public class UiJuegoScript : MonoBehaviour
             arduino = gameObjectArduino.AddComponent<comunicacionArduino>();
         }
 
+        arduino.juego = this;
         Valores();
     }
 
@@ -75,6 +76,11 @@ public class UiJuegoScript : MonoBehaviour
 
     private void ValidarValorInput(PointerDownEvent evt)
     {
+        ValidarRespuestaActual();
+    }
+
+    private void ValidarRespuestaActual()
+    {
         int valorRegistrado = inputNumerico.value;
         bool esCorrecto = valorRegistrado == valores.cociente;
 
@@ -83,16 +89,9 @@ public class UiJuegoScript : MonoBehaviour
             arduino.EnviarRespuesta(esCorrecto);
         }
 
-        if (valorRegistrado != 0)
-        {
-            jugar.style.backgroundColor = esCorrecto ? Color.green : Color.red;
-            Valores();
-            OrdenarOperaciones();
-        }
-        else
-        {
-            jugar.style.backgroundColor = Color.red;
-        }
+        jugar.style.backgroundColor = esCorrecto ? Color.green : Color.red;
+        OrdenarOperaciones();
+        Valores();
     }
     public string[] ValorCorrecto()
     {
@@ -139,15 +138,10 @@ public class UiJuegoScript : MonoBehaviour
         }
     }
 
-    public void ValidaInputArduino()
+    public void ValidaInputArduino(int switchesActivos)
     {
-        // Logica aqui.
-        // Se deberia poner aqui la logica de las entradas del arduino
-        // Y se debe invocar el metodo ValidarInput y quitar el parametro que recibe
-        // O usar los metodos de los cuales hace uso
-        // en caso de quitar el parametro comentar las siguientes lineas de codigo: 
-        /// jugar = root.Q<Button>("Jugar");
-        /// jugar.RegisterCallback<PointerDownEvent>(ValidarValorInput, TrickleDown.TrickleDown);
+        inputNumerico.value = switchesActivos;
+        ValidarRespuestaActual();
     }
 
 
