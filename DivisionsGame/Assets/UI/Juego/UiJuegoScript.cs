@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 public class UiJuegoScript : MonoBehaviour
 {
     public GeneradorDeValores valores;
+    public comunicacionArduino arduino;
     private UIDocument menuDocument;
     VisualElement root;
 
@@ -27,6 +28,17 @@ public class UiJuegoScript : MonoBehaviour
 
     void Start()
     {
+        if (arduino == null)
+        {
+            arduino = FindFirstObjectByType<comunicacionArduino>();
+        }
+
+        if (arduino == null)
+        {
+            GameObject gameObjectArduino = new GameObject("ComunicacionArduino");
+            arduino = gameObjectArduino.AddComponent<comunicacionArduino>();
+        }
+
         Valores();
     }
 
@@ -64,9 +76,16 @@ public class UiJuegoScript : MonoBehaviour
     private void ValidarValorInput(PointerDownEvent evt)
     {
         int valorRegistrado = inputNumerico.value;
+        bool esCorrecto = valorRegistrado == valores.cociente;
+
+        if (arduino != null)
+        {
+            arduino.EnviarRespuesta(esCorrecto);
+        }
+
         if (valorRegistrado != 0)
         {
-            jugar.style.backgroundColor = Color.green;
+            jugar.style.backgroundColor = esCorrecto ? Color.green : Color.red;
             Valores();
             OrdenarOperaciones();
         }
