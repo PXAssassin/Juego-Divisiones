@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Video/VideoStyle.uss?fileID=7433441132597879392&amp;guid=8f6454b534fe9614581cb6f2a26f0eda&amp;type=3#VideoStyle"/>
+    <ui:VisualElement name="ContenedorPadre" class="contenedorPadre" style="flex-grow: 1;">
+        <ui:VisualElement name="VideoAqui" class="video-contenedor" style="flex-grow: 1;"/>
+        <ui:VisualElement name="Interfaz" enabled="true" class="interfaz">
+            <ui:Label text="Presiona el boton 5s&#10; para continuar" name="txtSkip" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Lexend-VariableFont_wght.ttf?fileID=12800000&amp;guid=fb67724670071f9488997379caef1f61&amp;type=3#Lexend-VariableFont_wght&quot;); font-size: 20px; -unity-font-style: bold; color: rgb(255, 255, 255); -unity-text-align: upper-center;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

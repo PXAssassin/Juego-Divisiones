@@ -5,8 +5,10 @@ using UnityEngine.UIElements;
 public class UiJuegoScript : MonoBehaviour
 {
     public GeneradorDeValores valores;
-    public comunicacionArduino arduino;
     private UIDocument menuDocument;
+    public Sonidos sonidos;
+
+    public AudioSource altavoz;
     VisualElement root;
 
     public List<VisualElement> operacionesRealizadas = new List<VisualElement>();
@@ -28,19 +30,12 @@ public class UiJuegoScript : MonoBehaviour
 
     void Start()
     {
-        if (arduino == null)
-        {
-            arduino = FindFirstObjectByType<comunicacionArduino>();
-        }
+        GenerarValores();
+    }
 
-        if (arduino == null)
-        {
-            GameObject gameObjectArduino = new GameObject("ComunicacionArduino");
-            arduino = gameObjectArduino.AddComponent<comunicacionArduino>();
-        }
-
-        arduino.juego = this;
-        Valores();
+    void Update()
+    {
+        
     }
 
     void AsignarVisualizadorOperacionesR()
@@ -60,12 +55,10 @@ public class UiJuegoScript : MonoBehaviour
         divisor = root.Q<Label>("txt-divisor");
         resultadoCociente = root.Q<Label>("txt-resultado");
         publicarResultados = root.Q<Label>("txt-result");
-        jugar = root.Q<Button>("Jugar");
-        jugar.RegisterCallback<PointerDownEvent>(ValidarValorInput, TrickleDown.TrickleDown);
-        inputNumerico = root.Q<IntegerField>("InputCociente");
     }
+    
 
-    private void Valores()
+    private void GenerarValores()
     {
         valores.GenerarValores();
         resultadoCociente.text = "?";
@@ -74,34 +67,15 @@ public class UiJuegoScript : MonoBehaviour
     }
     
 
-    private void ValidarValorInput(PointerDownEvent evt)
+   
+    public string[] ValorCorrecto(int valorRegistrado)
     {
-        ValidarRespuestaActual();
-    }
-
-    private void ValidarRespuestaActual()
-    {
-        int valorRegistrado = inputNumerico.value;
-        bool esCorrecto = valorRegistrado == valores.cociente;
-
-        if (arduino != null)
-        {
-            arduino.EnviarRespuesta(esCorrecto);
-        }
-
-        jugar.style.backgroundColor = esCorrecto ? Color.green : Color.red;
-        OrdenarOperaciones();
-        Valores();
-    }
-    public string[] ValorCorrecto()
-    {
-        int valorRegistrado = inputNumerico.value;
         bool esCorrecto = valorRegistrado == valores.cociente;
         string var = esCorrecto ? " ✔ " : " X ";
         return new string[] {$"{valores.dividendo} ÷ {valores.divisor} = {valores.cociente}",var};
     }
 
-    public void OrdenarOperaciones()
+    public void OrdenarOperaciones(int valorRegistrado)
     {
         VisualElement primerElemento = operacionesRealizadas[0];
         Label hijo1 = primerElemento[0] as Label;
@@ -124,7 +98,7 @@ public class UiJuegoScript : MonoBehaviour
             }
 
         }
-        string[] valores = ValorCorrecto();
+        string[] valores = ValorCorrecto(valorRegistrado);
         hijo1.text = valores[0];
         hijo2 .text = valores[1];
 
@@ -138,10 +112,43 @@ public class UiJuegoScript : MonoBehaviour
         }
     }
 
-    public void ValidaInputArduino(int switchesActivos)
+
+    public void DarRespuesta(int valorRegistrado)
     {
-        inputNumerico.value = switchesActivos;
-        ValidarRespuestaActual();
+        int valorGenerado = valores.cociente;
+
+        resultadoCociente.text = valorRegistrado.ToString();
+
+        if (valorGenerado == valorRegistrado)
+        {
+            resultadoCociente.style.color = Color.green;
+            altavoz.clip = sonidos.audioClips[0];
+            altavoz.Play();
+        }
+        else
+        {
+            resultadoCociente .style.color = Color.red;
+            altavoz.clip = sonidos.audioClips[1];
+            altavoz.Play();
+        }
+    }
+
+
+    public IEnumerator DarRespuestaCorrutina(int valorRegistrado)
+    {
+        DarRespuesta(valorRegistrado);
+        yield return new WaitForSeconds(1f);
+        OrdenarOperaciones(valorRegistrado);
+        GenerarValores();
+
+    }
+
+    public void ValidaInputArduino(int valorRegistrado)
+    {
+        if (valorRegistrado != 0 && valorRegistrado < 9)
+        {
+            StartCoroutine(DarRespuestaCorrutina(valorRegistrado));
+        }
     }
 
 
