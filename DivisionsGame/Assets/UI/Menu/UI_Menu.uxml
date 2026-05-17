@@ -1,0 +1,21 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Menu/EstilosMenu.uss?fileID=7433441132597879392&amp;guid=9b409ea863080aa4e9ccc1156929944f&amp;type=3#EstilosMenu"/>
+    <ui:VisualElement name="ContenedorPadre" class="contedorPadre" style="flex-grow: 1; background-color: rgb(15, 21, 33);">
+        <ui:VisualElement name="1" class="first" style="flex-grow: 1;">
+            <ui:Label text="DiviTron" name="Titulo" style="font-size: 100%; -unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Lexend-VariableFont_wght.ttf?fileID=12800000&amp;guid=fb67724670071f9488997379caef1f61&amp;type=3#Lexend-VariableFont_wght&quot;); color: rgb(0, 180, 255);"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="2" class="second" style="flex-grow: 1; flex-direction: row; align-items: center;">
+            <ui:Image name="icon" class="img" style="width: 5%; height: auto; background-image: url(&quot;project://database/Assets/Sprites/rayito.svg?fileID=7388822144124034973&amp;guid=3315cd113257d4b4993dddccdd210550&amp;type=3#rayito&quot;); aspect-ratio: 1;"/>
+            <ui:Image name="icon" class="img" style="width: 7%; height: auto; background-image: url(&quot;project://database/Assets/Sprites/rayito.svg?fileID=7388822144124034973&amp;guid=3315cd113257d4b4993dddccdd210550&amp;type=3#rayito&quot;); aspect-ratio: 1;"/>
+            <ui:Image name="icon" class="img" style="width: 5%; height: auto; background-image: url(&quot;project://database/Assets/Sprites/rayito.svg?fileID=7388822144124034973&amp;guid=3315cd113257d4b4993dddccdd210550&amp;type=3#rayito&quot;); aspect-ratio: 1;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="3" class="third" style="flex-grow: 1;">
+            <ui:Button text="" style="width: 30%; height: 75%; background-color: rgba(188, 188, 188, 0); background-image: url(&quot;project://database/Assets/Sprites/Button%20(1).png?fileID=-7414830730180813051&amp;guid=3dd3a08487c90b543ab3aff54b3b0b2c&amp;type=3#Button (1)_0&quot;); -unity-background-scale-mode: scale-and-crop; background-position-y: center; background-position-x: center; background-size: cover; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="4" class="second" style="flex-grow: 1; flex-direction: row; align-items: center;">
+            <ui:Image name="icon" class="img" style="width: 5%; height: auto; background-image: url(&quot;project://database/Assets/Sprites/engranaje.svg?fileID=7388822144124034973&amp;guid=57a5da33de520594fad6b1c4ac8c49de&amp;type=3#engranaje&quot;); aspect-ratio: 1;"/>
+            <ui:Image name="icon" class="img" style="width: 7%; height: auto; background-image: url(&quot;project://database/Assets/Sprites/engranaje.svg?fileID=7388822144124034973&amp;guid=57a5da33de520594fad6b1c4ac8c49de&amp;type=3#engranaje&quot;); aspect-ratio: 1;"/>
+            <ui:Image name="icon" class="img" style="width: 5%; height: auto; background-image: url(&quot;project://database/Assets/Sprites/engranaje.svg?fileID=7388822144124034973&amp;guid=57a5da33de520594fad6b1c4ac8c49de&amp;type=3#engranaje&quot;); aspect-ratio: 1;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
