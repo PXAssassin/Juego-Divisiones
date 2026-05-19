@@ -7,7 +7,7 @@ public class UiJuegoScript : MonoBehaviour
     public GeneradorDeValores valores;
     private UIDocument menuDocument;
     public Sonidos sonidos;
-
+    public int puntaje = 0;
     public AudioSource altavoz;
     VisualElement root;
 
@@ -16,8 +16,8 @@ public class UiJuegoScript : MonoBehaviour
     Label dividendo;
     Label divisor;
     Label resultadoCociente;
-    Label publicarResultados;
-    Button jugar;
+    Label score;
+
     IntegerField inputNumerico;
 
     void Awake()
@@ -31,11 +31,6 @@ public class UiJuegoScript : MonoBehaviour
     void Start()
     {
         GenerarValores();
-    }
-
-    void Update()
-    {
-        
     }
 
     void AsignarVisualizadorOperacionesR()
@@ -54,7 +49,7 @@ public class UiJuegoScript : MonoBehaviour
         dividendo = root.Q<Label>("txt-dividendo");
         divisor = root.Q<Label>("txt-divisor");
         resultadoCociente = root.Q<Label>("txt-resultado");
-        publicarResultados = root.Q<Label>("txt-result");
+        score = root.Q<Label>("txt-score");
     }
     
 
@@ -64,6 +59,7 @@ public class UiJuegoScript : MonoBehaviour
         resultadoCociente.text = "?";
         divisor.text = valores.divisor.ToString();
         dividendo.text = valores.dividendo.ToString();
+        score.text = puntaje.ToString();
     }
     
 
@@ -121,13 +117,17 @@ public class UiJuegoScript : MonoBehaviour
 
         if (valorGenerado == valorRegistrado)
         {
+            puntaje += 30;
             resultadoCociente.style.color = Color.green;
+            score.text = puntaje.ToString();
             altavoz.clip = sonidos.audioClips[0];
             altavoz.Play();
         }
         else
         {
+            puntaje -= 30;
             resultadoCociente .style.color = Color.red;
+            score.text = puntaje.ToString();
             altavoz.clip = sonidos.audioClips[1];
             altavoz.Play();
         }
@@ -145,14 +145,13 @@ public class UiJuegoScript : MonoBehaviour
 
     public void ValidaInputArduino(int valorRegistrado)
     {
-        if (valorRegistrado != 0 && valorRegistrado < 9)
+        if (GameManager.instance.estadoActual == GameManager.EstadoJuego.Juego)
         {
-            StartCoroutine(DarRespuestaCorrutina(valorRegistrado));
+            if (valorRegistrado != 0 && valorRegistrado < 9)
+            {
+                StartCoroutine(DarRespuestaCorrutina(valorRegistrado));
+            }
         }
+        
     }
-
-
-
-
-
 }

@@ -12,7 +12,7 @@ public class ControladorVideo : MonoBehaviour
     VisualElement root;
     VisualElement interfazAviso;
 
-    public string nombreEscenaJuego;
+    public string nombreEscenaJuego = "EscenaJuego";
     public bool botonEstaPresionado = false;
     public float tiempoPresionado = 0f;
     private const float TIEMPO_REQUERIDO_SALTAR = 5f;
@@ -56,31 +56,35 @@ public class ControladorVideo : MonoBehaviour
     /// </summary>
     public void RecibirInputBotonFisico(bool estaPresionado)
     {
-        botonEstaPresionado = estaPresionado;
-
-        if (estaPresionado)
+        if (GameManager.instance.estadoActual == GameManager.EstadoJuego.Video)
         {
-            if (videoHaTerminado)
-            {
-                Debug.Log("Contando 5 segundos para continuar tras el final...");
-                return;
-            }
+            botonEstaPresionado = estaPresionado;
 
-            if (videoPlayer.isPlaying)
+            if (estaPresionado)
             {
-                videoPlayer.Pause();
-                Debug.Log("Video Pausado.");
+                if (videoHaTerminado)
+                {
+                    Debug.Log("Contando 5 segundos para continuar tras el final...");
+                    return;
+                }
+
+                if (videoPlayer.isPlaying)
+                {
+                    videoPlayer.Pause();
+                    Debug.Log("Video Pausado.");
+                }
+                else
+                {
+                    videoPlayer.Play();
+                    Debug.Log("Video Reanudado.");
+                }
             }
             else
             {
-                videoPlayer.Play();
-                Debug.Log("Video Reanudado.");
+                tiempoPresionado = 0f;
             }
         }
-        else
-        {
-            tiempoPresionado = 0f;
-        }
+        
     }
 
     private void AlLlegarAlFinalDelVideo(VideoPlayer vp)
@@ -88,7 +92,6 @@ public class ControladorVideo : MonoBehaviour
         videoHaTerminado = true;
         videoPlayer.Pause();
 
-        //Cambio clases
         if (interfazAviso != null)
         {
             if (interfazAviso.ClassListContains("interfaz"))
@@ -103,6 +106,8 @@ public class ControladorVideo : MonoBehaviour
     private void CargarSiguienteEscena()
     {
         SceneManager.LoadScene(nombreEscenaJuego);
+        GameManager.instance.estadoActual = GameManager.EstadoJuego.Juego;
+
     }
 }
 

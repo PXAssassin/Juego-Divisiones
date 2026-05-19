@@ -3,7 +3,7 @@
     <ui:VisualElement name="ContenedorPadre" class="contenedorPadre">
         <ui:VisualElement name="Header" class="header" style="flex-grow: 1;">
             <ui:VisualElement name="nombreSistema" style="flex-grow: 1; flex-direction: row; align-items: center; width: 30%; height: 100%; justify-content: flex-start; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 5%;">
-                <ui:Label text="GALERIA DE DIVISIONES - V1.5.2" name="txt-nombre-sistema" style="color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/Fonts/Lexend-VariableFont_wght.ttf?fileID=12800000&amp;guid=fb67724670071f9488997379caef1f61&amp;type=3#Lexend-VariableFont_wght&quot;); font-size: 20%; -unity-font-style: bold;"/>
+                <ui:Label text="DIVITRON V1.5.2&#10;" name="txt-nombre-sistema" style="color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/Fonts/Lexend-VariableFont_wght.ttf?fileID=12800000&amp;guid=fb67724670071f9488997379caef1f61&amp;type=3#Lexend-VariableFont_wght&quot;); font-size: 20%; -unity-font-style: bold;"/>
             </ui:VisualElement>
             <ui:VisualElement name="medio" style="flex-grow: 1; width: 20%; height: 100%;"/>
             <ui:VisualElement name="score-n-timer" style="flex-grow: 1; width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end; padding-top: 0; padding-right: 10%;">
@@ -11,7 +11,7 @@
                 <ui:VisualElement name="timer" style="flex-grow: 1; width: 15%; height: 100%; align-items: center; justify-content: center;"/>
                 <ui:VisualElement name="score" style="flex-grow: 1; width: 15%; height: 100%; align-items: center; justify-content: center;">
                     <ui:Label text="SCORE" name="txt-titulo" style="color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 15%; -unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kids-Regular.ttf?fileID=12800000&amp;guid=613bac879cb1149449c3e541744491e5&amp;type=3#Kids-Regular&quot;);"/>
-                    <ui:Label text="0:00" name="txt-temporizador" style="color: rgb(215, 139, 12); padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 30%; -unity-font-definition: url(&quot;project://database/Assets/Fonts/GROBOLD.ttf?fileID=12800000&amp;guid=7ae43624891dfe0418c716074663170f&amp;type=3#GROBOLD&quot;);"/>
+                    <ui:Label text="0" name="txt-score" style="color: rgb(215, 139, 12); padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 30%; -unity-font-definition: url(&quot;project://database/Assets/Fonts/GROBOLD.ttf?fileID=12800000&amp;guid=7ae43624891dfe0418c716074663170f&amp;type=3#GROBOLD&quot;);"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

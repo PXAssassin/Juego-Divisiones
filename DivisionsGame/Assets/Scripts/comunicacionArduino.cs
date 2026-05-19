@@ -4,16 +4,11 @@ using System.IO.Ports;
 public class comunicacionArduino : MonoBehaviour
 {
     public SerialPort puerto = new SerialPort("COM5", 9600);
-    public UiJuegoScript juego;
     public string ultimoDatoRecibido = "";
 
     void Start()
     {
-        if (juego == null)
-        {
-            juego = FindFirstObjectByType<UiJuegoScript>();
-        }
-
+        
         puerto.ReadTimeout = 30;
 
         try
@@ -34,14 +29,14 @@ public class comunicacionArduino : MonoBehaviour
     {
         try
         {
-            if (puerto.IsOpen)
+            if (puerto.IsOpen && puerto.BytesToRead > 0)
             {
-                ultimoDatoRecibido = puerto.ReadLine();
+                ultimoDatoRecibido = puerto.ReadLine().Trim();
                 Debug.Log(ultimoDatoRecibido);
 
-                if (int.TryParse(ultimoDatoRecibido, out int switchesActivos) && juego != null)
+                if (int.TryParse(ultimoDatoRecibido, out int switchesActivos))
                 {
-                    juego.ValidaInputArduino(switchesActivos);
+                    RedirigirInputPorEstado(switchesActivos); 
                 }
             }
         }
@@ -53,6 +48,36 @@ public class comunicacionArduino : MonoBehaviour
             Debug.LogWarning($"Error leyendo desde Arduino: {ex.Message}");
         }
 
+    }
+
+    private void RedirigirInputPorEstado(int switchesActivos)
+    {
+        // 0. Si estamos en la escena del MENU (¡Añadido para poder arrancar!)
+        if (GameManager.instance.estadoActual == GameManager.EstadoJuego.Menu)
+        {
+            // Como tu Arduino manda datos solo cuando se presiona el botón, 
+            // cualquier dato recibido aquí significa que quieren iniciar el juego.
+            Debug.Log("Botón presionado en el Menú. Iniciando juego...");
+            GameManager.instance.Iniciar();
+        }
+        // 1. Si estamos en la escena del VIDEO
+        else if (GameManager.instance.estadoActual == GameManager.EstadoJuego.Video)
+        {
+            ControladorVideo scriptVideo = FindFirstObjectByType<ControladorVideo>();
+            if (scriptVideo != null)
+            {
+                scriptVideo.RecibirInputBotonFisico(true);
+            }
+        }
+        // 2. Si estamos en la escena del JUEGO MATEMÁTICO
+        else if (GameManager.instance.estadoActual == GameManager.EstadoJuego.Juego)
+        {
+            UiJuegoScript scriptJuego = FindFirstObjectByType<UiJuegoScript>();
+            if (scriptJuego != null)
+            {
+                scriptJuego.ValidaInputArduino(switchesActivos);
+            }
+        }
     }
 
     public void EnviarRespuesta(int respuesta)
