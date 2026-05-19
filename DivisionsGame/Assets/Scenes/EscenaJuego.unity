@@ -298,8 +298,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UiJuegoScript
   valores: {fileID: 1654829650}
-  sonidos: {fileID: 0}
-  altavoz: {fileID: 0}
+  sonidos: {fileID: 1654829655}
+  altavoz: {fileID: 1654829654}
 --- !u!82 &1654829654
 AudioSource:
   m_ObjectHideFlags: 0

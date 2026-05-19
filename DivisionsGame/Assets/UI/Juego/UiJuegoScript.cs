@@ -23,6 +23,10 @@ public class UiJuegoScript : MonoBehaviour
     void Awake()
     {
         menuDocument = GetComponent<UIDocument>();
+        if (valores == null) valores = GetComponent<GeneradorDeValores>();
+        if (sonidos == null) sonidos = GetComponent<Sonidos>();
+        if (altavoz == null) altavoz = GetComponent<AudioSource>();
+
         root = menuDocument.rootVisualElement;
         ConfigurarAsignaciones();
         AsignarVisualizadorOperacionesR();
@@ -112,25 +116,54 @@ public class UiJuegoScript : MonoBehaviour
     public void DarRespuesta(int valorRegistrado)
     {
         int valorGenerado = valores.cociente;
+        bool esCorrecto = valorGenerado == valorRegistrado;
 
         resultadoCociente.text = valorRegistrado.ToString();
 
-        if (valorGenerado == valorRegistrado)
+        if (esCorrecto)
         {
             puntaje += 30;
             resultadoCociente.style.color = Color.green;
             score.text = puntaje.ToString();
-            altavoz.clip = sonidos.audioClips[0];
-            altavoz.Play();
+            ReproducirSonidoRespuesta(0);
         }
         else
         {
             puntaje -= 30;
             resultadoCociente .style.color = Color.red;
             score.text = puntaje.ToString();
-            altavoz.clip = sonidos.audioClips[1];
-            altavoz.Play();
+            ReproducirSonidoRespuesta(1);
         }
+
+        if (GameManager.instance != null && GameManager.instance.comunicacion != null)
+        {
+            GameManager.instance.comunicacion.EnviarRespuesta(esCorrecto);
+        }
+    }
+
+    private void ReproducirSonidoRespuesta(int indiceClip)
+    {
+        if (altavoz == null || sonidos == null || sonidos.audioClips == null || sonidos.audioClips.Count == 0)
+        {
+            Debug.LogWarning("No hay AudioSource o clips de sonido configurados para la respuesta.");
+            return;
+        }
+
+        if (indiceClip >= sonidos.audioClips.Count)
+        {
+            Debug.LogWarning($"Falta configurar el clip de sonido en la posicion {indiceClip}.");
+            return;
+        }
+
+        AudioClip clip = sonidos.audioClips[indiceClip];
+        if (clip == null)
+        {
+            Debug.LogWarning($"El clip de sonido en la posicion {indiceClip} esta vacio.");
+            return;
+        }
+
+        altavoz.clip = clip;
+        altavoz.Play();
     }
 
 

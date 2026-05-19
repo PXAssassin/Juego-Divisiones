@@ -5,6 +5,8 @@ using UnityEngine.Video;
 
 public class ControladorVideo : MonoBehaviour
 {
+    private const string ESCENA_JUEGO_POR_DEFECTO = "EscenaJuego";
+
     [Header("Componentes de Video")]
     public VideoPlayer videoPlayer;
     public UIDocument uiDocument;
@@ -12,7 +14,7 @@ public class ControladorVideo : MonoBehaviour
     VisualElement root;
     VisualElement interfazAviso;
 
-    public string nombreEscenaJuego = "EscenaJuego";
+    public string nombreEscenaJuego = ESCENA_JUEGO_POR_DEFECTO;
     public bool botonEstaPresionado = false;
     public float tiempoPresionado = 0f;
     private const float TIEMPO_REQUERIDO_SALTAR = 5f;
@@ -21,6 +23,11 @@ public class ControladorVideo : MonoBehaviour
 
     private void Awake()
     {
+        if (string.IsNullOrWhiteSpace(nombreEscenaJuego))
+        {
+            nombreEscenaJuego = ESCENA_JUEGO_POR_DEFECTO;
+        }
+
         if (videoPlayer == null) videoPlayer = GetComponent<VideoPlayer>();
         root = uiDocument.rootVisualElement;
         interfazAviso = root.Q<VisualElement>("Interfaz");
@@ -105,9 +112,18 @@ public class ControladorVideo : MonoBehaviour
 
     private void CargarSiguienteEscena()
     {
-        SceneManager.LoadScene(nombreEscenaJuego);
+        string escenaDestino = string.IsNullOrWhiteSpace(nombreEscenaJuego) ? ESCENA_JUEGO_POR_DEFECTO : nombreEscenaJuego;
+        SceneManager.LoadScene(escenaDestino);
         GameManager.instance.estadoActual = GameManager.EstadoJuego.Juego;
 
+    }
+
+    private void OnValidate()
+    {
+        if (string.IsNullOrWhiteSpace(nombreEscenaJuego))
+        {
+            nombreEscenaJuego = ESCENA_JUEGO_POR_DEFECTO;
+        }
     }
 }
 

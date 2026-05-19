@@ -1,14 +1,16 @@
-using UnityEngine;
+using System;
 using System.IO.Ports;
+using UnityEngine;
 
 public class comunicacionArduino : MonoBehaviour
 {
-    public SerialPort puerto = new SerialPort("COM5", 9600);
+    public SerialPort puerto = new SerialPort("COM4", 9600);
     public string ultimoDatoRecibido = "";
+
+    private bool botonPresionadoAnterior = false;
 
     void Start()
     {
-        
         puerto.ReadTimeout = 30;
 
         try
@@ -24,19 +26,24 @@ public class comunicacionArduino : MonoBehaviour
         }
     }
 
-
     void Update()
     {
         try
         {
-            if (puerto.IsOpen && puerto.BytesToRead > 0)
+            while (puerto.IsOpen && puerto.BytesToRead > 0)
             {
                 ultimoDatoRecibido = puerto.ReadLine().Trim();
                 Debug.Log(ultimoDatoRecibido);
 
-                if (int.TryParse(ultimoDatoRecibido, out int switchesActivos))
+                if (TryParseEstadoArduino(ultimoDatoRecibido, out int switchesActivos, out bool botonPresionado))
                 {
-                    RedirigirInputPorEstado(switchesActivos); 
+                    RedirigirInputPorEstado(switchesActivos, botonPresionado, false);
+                    botonPresionadoAnterior = botonPresionado;
+                }
+                else if (int.TryParse(ultimoDatoRecibido, out switchesActivos))
+                {
+                    // Compatibilidad con el formato anterior: una linea numerica significaba boton presionado.
+                    RedirigirInputPorEstado(switchesActivos, true, true);
                 }
             }
         }
@@ -47,33 +54,104 @@ public class comunicacionArduino : MonoBehaviour
         {
             Debug.LogWarning($"Error leyendo desde Arduino: {ex.Message}");
         }
-
     }
 
-    private void RedirigirInputPorEstado(int switchesActivos)
+    private bool TryParseEstadoArduino(string dato, out int switchesActivos, out bool botonPresionado)
     {
-        // 0. Si estamos en la escena del MENU (¡Añadido para poder arrancar!)
+        switchesActivos = 0;
+        botonPresionado = false;
+
+        if (string.IsNullOrWhiteSpace(dato))
+        {
+            return false;
+        }
+
+        string[] partes = dato.Trim().Split(new[] { ';', ',', '|' }, StringSplitOptions.RemoveEmptyEntries);
+        bool encontroSwitches = false;
+        bool encontroBoton = false;
+
+        if (partes.Length == 2 && int.TryParse(partes[0].Trim(), out int switchesSinClave) && TryParseBoolSerial(partes[1].Trim(), out bool botonSinClave))
+        {
+            switchesActivos = switchesSinClave;
+            botonPresionado = botonSinClave;
+            return SwitchesValidos(switchesActivos);
+        }
+
+        foreach (string parte in partes)
+        {
+            string[] claveValor = parte.Split(new[] { '=', ':' }, 2, StringSplitOptions.RemoveEmptyEntries);
+            if (claveValor.Length != 2)
+            {
+                continue;
+            }
+
+            string clave = claveValor[0].Trim().ToUpperInvariant();
+            string valor = claveValor[1].Trim();
+
+            if ((clave == "S" || clave == "SW" || clave == "SWITCHES") && int.TryParse(valor, out int switchesConClave))
+            {
+                switchesActivos = switchesConClave;
+                encontroSwitches = true;
+            }
+            else if ((clave == "B" || clave == "BTN" || clave == "BOTON" || clave == "BUTTON") && TryParseBoolSerial(valor, out bool botonConClave))
+            {
+                botonPresionado = botonConClave;
+                encontroBoton = true;
+            }
+        }
+
+        return encontroSwitches && encontroBoton && SwitchesValidos(switchesActivos);
+    }
+
+    private bool TryParseBoolSerial(string valor, out bool resultado)
+    {
+        string normalizado = valor.Trim().ToUpperInvariant();
+
+        if (normalizado == "1" || normalizado == "TRUE" || normalizado == "HIGH" || normalizado == "ON")
+        {
+            resultado = true;
+            return true;
+        }
+
+        if (normalizado == "0" || normalizado == "FALSE" || normalizado == "LOW" || normalizado == "OFF")
+        {
+            resultado = false;
+            return true;
+        }
+
+        resultado = false;
+        return false;
+    }
+
+    private bool SwitchesValidos(int switchesActivos)
+    {
+        return switchesActivos >= 0 && switchesActivos <= 8;
+    }
+
+    private void RedirigirInputPorEstado(int switchesActivos, bool botonPresionado, bool esEventoDeBoton)
+    {
+        bool botonAcabaDePresionarse = esEventoDeBoton || (botonPresionado && !botonPresionadoAnterior);
+
         if (GameManager.instance.estadoActual == GameManager.EstadoJuego.Menu)
         {
-            // Como tu Arduino manda datos solo cuando se presiona el botón, 
-            // cualquier dato recibido aquí significa que quieren iniciar el juego.
-            Debug.Log("Botón presionado en el Menú. Iniciando juego...");
-            GameManager.instance.Iniciar();
+            if (botonAcabaDePresionarse)
+            {
+                Debug.Log("Boton presionado en el menu. Iniciando juego...");
+                GameManager.instance.Iniciar();
+            }
         }
-        // 1. Si estamos en la escena del VIDEO
         else if (GameManager.instance.estadoActual == GameManager.EstadoJuego.Video)
         {
             ControladorVideo scriptVideo = FindFirstObjectByType<ControladorVideo>();
-            if (scriptVideo != null)
+            if (scriptVideo != null && (esEventoDeBoton || botonPresionado != botonPresionadoAnterior))
             {
-                scriptVideo.RecibirInputBotonFisico(true);
+                scriptVideo.RecibirInputBotonFisico(botonPresionado);
             }
         }
-        // 2. Si estamos en la escena del JUEGO MATEMÁTICO
         else if (GameManager.instance.estadoActual == GameManager.EstadoJuego.Juego)
         {
             UiJuegoScript scriptJuego = FindFirstObjectByType<UiJuegoScript>();
-            if (scriptJuego != null)
+            if (scriptJuego != null && botonAcabaDePresionarse)
             {
                 scriptJuego.ValidaInputArduino(switchesActivos);
             }

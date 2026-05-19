@@ -258,7 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ControladorVideo
   videoPlayer: {fileID: 704055561}
   uiDocument: {fileID: 1063850477}
-  nombreEscenaJuego: 
+  nombreEscenaJuego: EscenaJuego
   botonEstaPresionado: 0
   tiempoPresionado: 0
 --- !u!1 &1441822541
